@@ -5,11 +5,11 @@ import com.sarathexp.offlinewallet.domain.repository.BankAccountRepository
 import com.sarathexp.offlinewallet.util.BaseUseCase
 
 class DeleteBankAccount(
-    private val bankAccountRepository: BankAccountRepository
+    private val repository: BankAccountRepository
 ) : BaseUseCase<BankAccount, Boolean>() {
 
     override suspend fun run(params: BankAccount): Boolean {
-        return bankAccountRepository.deleteBankAccount(params)
+        return repository.deleteBankAccount(params)
     }
 
 }

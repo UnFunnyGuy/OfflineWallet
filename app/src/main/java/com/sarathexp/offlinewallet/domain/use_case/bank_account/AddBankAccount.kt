@@ -4,10 +4,12 @@ import com.sarathexp.offlinewallet.domain.model.account.BankAccount
 import com.sarathexp.offlinewallet.domain.repository.BankAccountRepository
 import com.sarathexp.offlinewallet.util.BaseUseCase
 
-class UpdateBankAccount(private val repository: BankAccountRepository) :
-    BaseUseCase<BankAccount, Boolean>() {
+class AddBankAccount(
+    private val repository: BankAccountRepository
+) : BaseUseCase<BankAccount,Boolean>() {
 
     override suspend fun run(params: BankAccount): Boolean {
-        return repository.updateBankAccount(params)
+        return repository.addBankAccount(params)
     }
+
 }

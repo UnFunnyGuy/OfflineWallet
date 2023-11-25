@@ -13,14 +13,6 @@ class AuthHistoryRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateAuthHistory(authHistory: AuthHistory): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun deleteAuthHistory(authHistory: AuthHistory): Boolean {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun deleteAuthHistoryById(authHistoryId: Long): Boolean {
         TODO("Not yet implemented")
     }
@@ -32,4 +24,9 @@ class AuthHistoryRepositoryImpl @Inject constructor(
     override suspend fun getAllAuthHistories(): Flow<List<AuthHistory>> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun lastAuthenticated(): AuthHistory? {
+        TODO("Not yet implemented")
+    }
+
 }
