@@ -2,8 +2,10 @@ package com.sarathexp.offlinewallet.di
 
 import com.sarathexp.offlinewallet.data.repository.AuthHistoryRepositoryImpl
 import com.sarathexp.offlinewallet.data.repository.BankAccountRepositoryImpl
+import com.sarathexp.offlinewallet.data.repository.CardRepositoryImpl
 import com.sarathexp.offlinewallet.domain.repository.AuthHistoryRepository
 import com.sarathexp.offlinewallet.domain.repository.BankAccountRepository
+import com.sarathexp.offlinewallet.domain.repository.CardRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,12 +16,16 @@ import dagger.hilt.components.SingletonComponent
 abstract class RepositoryModule {
 
     @Binds
-    abstract fun bindAuthHistoryRepository(repository: AuthHistoryRepositoryImpl): AuthHistoryRepository
+    abstract fun bindAuthHistoryRepository(
+        repository: AuthHistoryRepositoryImpl
+    ): AuthHistoryRepository
 
     @Binds
-    abstract fun bindBankAccountRepository(repository: BankAccountRepositoryImpl): BankAccountRepository
+    abstract fun bindBankAccountRepository(
+        repository: BankAccountRepositoryImpl
+    ): BankAccountRepository
 
-    @Binds
-    abstract fun bindCardRepository(repository: BankAccountRepositoryImpl): BankAccountRepository
-
+    @Binds abstract fun bindCardRepository(
+        repository: CardRepositoryImpl
+    ): CardRepository
 }

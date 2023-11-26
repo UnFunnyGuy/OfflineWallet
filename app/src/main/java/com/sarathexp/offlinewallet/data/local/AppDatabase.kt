@@ -14,7 +14,13 @@ import com.sarathexp.offlinewallet.data.model.entity.CardEntity
 import com.sarathexp.offlinewallet.data.model.entity.ProviderEntity
 
 @Database(
-    entities = [BankAccountEntity::class, ProviderEntity::class, CardEntity::class],
+    entities =
+        [
+            BankAccountEntity::class,
+            ProviderEntity::class,
+            CardEntity::class,
+            AuthHistoryEntity::class
+        ],
     version = 1,
     exportSchema = false
 )
