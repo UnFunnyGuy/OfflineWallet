@@ -106,6 +106,8 @@ dependencies {
     implementation(libs.room.sql.ktx)
     ksp(libs.room.compiler)
 
+    implementation(libs.google.gson)
+
     implementation(libs.kotlinx.collections.immutable)
 
 }

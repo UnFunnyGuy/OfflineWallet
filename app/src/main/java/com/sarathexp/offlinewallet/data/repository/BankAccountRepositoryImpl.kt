@@ -1,14 +1,16 @@
 package com.sarathexp.offlinewallet.data.repository
 
 import com.sarathexp.offlinewallet.data.local.dao.BankAccountDao
+import com.sarathexp.offlinewallet.data.model.mapper.toDomain
 import com.sarathexp.offlinewallet.domain.model.account.BankAccount
 import com.sarathexp.offlinewallet.domain.repository.BankAccountRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.mapLatest
 import javax.inject.Inject
 
-class BankAccountRepositoryImpl @Inject constructor(
-    private val bankAccountDao: BankAccountDao
-) : BankAccountRepository {
+class BankAccountRepositoryImpl @Inject constructor(private val bankAccountDao: BankAccountDao) :
+    BankAccountRepository {
 
     override suspend fun addBankAccount(bankAccount: BankAccount): Boolean {
         TODO("Not yet implemented")
@@ -30,7 +32,8 @@ class BankAccountRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     override suspend fun getAllBankAccounts(): Flow<List<BankAccount>> {
-        TODO("Not yet implemented")
+        return bankAccountDao.getAllBankAccounts().mapLatest { list -> list.map { it.toDomain() } }
     }
 }

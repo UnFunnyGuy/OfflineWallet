@@ -66,5 +66,5 @@ object UseCaseModule {
             getAllAuthHistories = GetAllAuthHistories(repository)
         )
 
-    
+
 }

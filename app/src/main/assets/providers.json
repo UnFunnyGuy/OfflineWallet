@@ -1,0 +1,25 @@
+[
+
+  {
+    "id": 1,
+    "name": "Axis Bank",
+    "isBank": true,
+    "issuesCards": true,
+    "drawableId": "axis_bank"
+  },
+  {
+    "id": 2,
+    "name": "Bank of Baroda",
+    "isBank": true,
+    "issuesCards": true,
+    "drawableId": "bank_of_baroda"
+  },
+  {
+    "id": 3,
+    "name": "State Bank of India",
+    "isBank": true,
+    "issuesCards": true,
+    "drawableId": "sbi"
+  }
+
+]
