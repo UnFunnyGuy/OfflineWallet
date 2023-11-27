@@ -1,4 +1,4 @@
-package com.sarathexp.offlinewallet.util
+package com.sarathexp.offlinewallet.app.base
 
 abstract class BaseUseCase<in Params, out Type> {
 

@@ -1,4 +1,4 @@
-package com.sarathexp.offlinewallet
+package com.sarathexp.offlinewallet.app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

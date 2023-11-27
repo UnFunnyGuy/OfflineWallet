@@ -1,4 +1,4 @@
-package com.sarathexp.offlinewallet.util
+package com.sarathexp.offlinewallet.app.base
 
 import androidx.room.Delete
 import androidx.room.Insert

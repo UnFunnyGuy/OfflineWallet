@@ -1,7 +1,7 @@
 package com.sarathexp.offlinewallet.domain.use_case.card
 
 import com.sarathexp.offlinewallet.domain.repository.CardRepository
-import com.sarathexp.offlinewallet.util.BaseUseCase
+import com.sarathexp.offlinewallet.app.base.BaseUseCase
 
 class DeleteCardById(private val repository: CardRepository) : BaseUseCase<Long, Boolean>() {
 

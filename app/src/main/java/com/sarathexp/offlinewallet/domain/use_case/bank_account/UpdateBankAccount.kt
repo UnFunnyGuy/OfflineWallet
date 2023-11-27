@@ -2,7 +2,7 @@ package com.sarathexp.offlinewallet.domain.use_case.bank_account
 
 import com.sarathexp.offlinewallet.domain.model.account.BankAccount
 import com.sarathexp.offlinewallet.domain.repository.BankAccountRepository
-import com.sarathexp.offlinewallet.util.BaseUseCase
+import com.sarathexp.offlinewallet.app.base.BaseUseCase
 
 class UpdateBankAccount(private val repository: BankAccountRepository) :
     BaseUseCase<BankAccount, Boolean>() {
