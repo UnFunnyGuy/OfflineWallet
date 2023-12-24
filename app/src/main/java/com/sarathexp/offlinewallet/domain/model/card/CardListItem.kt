@@ -10,6 +10,7 @@ data class CardListItem(
     val alias: String?,
     val cardNetwork: CardNetwork,
     val cardType: CardType,
+    val color: String,
     val providerName: String,
     val providerLogoRes: Int,
 )

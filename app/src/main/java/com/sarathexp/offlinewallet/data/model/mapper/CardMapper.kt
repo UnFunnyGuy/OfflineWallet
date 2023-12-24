@@ -2,6 +2,8 @@ package com.sarathexp.offlinewallet.data.model.mapper
 
 import com.sarathexp.offlinewallet.data.model.entity.CardEntity
 import com.sarathexp.offlinewallet.domain.model.card.Card
+import com.sarathexp.offlinewallet.util.extension.color
+import com.sarathexp.offlinewallet.util.extension.toHex
 
 fun CardEntity.toDomain(): Card {
     return Card(
@@ -18,6 +20,7 @@ fun CardEntity.toDomain(): Card {
         alias = alias,
         cardNetwork = cardNetwork,
         cardType = cardType,
+        color = color.color,
         createdAt = createdAt,
         updatedAt = updatedAt
 
@@ -39,6 +42,7 @@ fun Card.toEntity() : CardEntity {
         alias = alias,
         cardNetwork = cardNetwork,
         cardType = cardType,
+        color = color.toHex(),
         createdAt = createdAt,
         updatedAt = updatedAt
     )

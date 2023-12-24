@@ -19,6 +19,7 @@ interface CardDao : BaseDao<CardEntity> {
         card.alias,
         card.cardNetwork,
         card.cardType,
+        card.color,
         provider.name AS providerName,
         provider.logoRes AS providerLogoRes
         FROM cards AS card

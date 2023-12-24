@@ -1,12 +1,11 @@
 package com.sarathexp.offlinewallet.data.model.entity
 
-import androidx.compose.material3.ColorScheme
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
-import com.sarathexp.offlinewallet.domain.model.card.CardType
 import androidx.room.Index
+import androidx.room.PrimaryKey
 import com.sarathexp.offlinewallet.domain.model.card.CardNetwork
+import com.sarathexp.offlinewallet.domain.model.card.CardType
 import java.time.LocalDateTime
 
 @Entity(
@@ -45,6 +44,7 @@ data class CardEntity(
     val alias: String?,
     val cardNetwork: CardNetwork,
     val cardType: CardType,
+    val color: String,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     val updatedAt: LocalDateTime = LocalDateTime.now()
 )

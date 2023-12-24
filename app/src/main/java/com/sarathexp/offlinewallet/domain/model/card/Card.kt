@@ -1,5 +1,6 @@
 package com.sarathexp.offlinewallet.domain.model.card
 
+import androidx.compose.ui.graphics.Color
 import java.time.LocalDateTime
 
 data class Card(
@@ -16,6 +17,7 @@ data class Card(
     val alias: String?,
     val cardNetwork: CardNetwork,
     val cardType: CardType,
+    val color: Color,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     val updatedAt: LocalDateTime = LocalDateTime.now()
 ){
