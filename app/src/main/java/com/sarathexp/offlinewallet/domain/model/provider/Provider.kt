@@ -5,6 +5,6 @@ data class Provider(
     val name: String,
     val isBank: Boolean,
     val issuesCards: Boolean,
-    val logoRes: Int?,
-    val iconRes: Int?,
+    val logoRes: Int,
+    val iconRes: Int,
 )

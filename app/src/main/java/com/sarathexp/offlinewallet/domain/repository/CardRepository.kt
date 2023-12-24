@@ -1,6 +1,7 @@
 package com.sarathexp.offlinewallet.domain.repository
 
 import com.sarathexp.offlinewallet.domain.model.card.Card
+import com.sarathexp.offlinewallet.domain.model.card.CardListItem
 import kotlinx.coroutines.flow.Flow
 
 interface CardRepository {
@@ -9,5 +10,5 @@ interface CardRepository {
     suspend fun deleteCard(card: Card): Boolean
     suspend fun deleteCardById(cardId: Long): Boolean
     suspend fun getCardById(cardId: Long): Card?
-    suspend fun getAllCards(): Flow<List<Card>>
+    fun getAllCards(query: String?): Flow<List<CardListItem>>
 }

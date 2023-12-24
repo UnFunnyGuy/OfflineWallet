@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Offline Wallet</string>
+    <string name="screen_title_cards">Cards</string>
+    <string name="screen_title_add_cards">Add Card</string>
+    <string name="button_add">ADD</string>
+    <string name="field_card_number">Card Number</string>
 </resources>

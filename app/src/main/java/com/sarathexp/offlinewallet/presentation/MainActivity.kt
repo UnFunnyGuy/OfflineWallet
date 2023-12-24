@@ -2,44 +2,51 @@ package com.sarathexp.offlinewallet.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.sarathexp.offlinewallet.presentation.theme.OfflineWalletTheme
+import androidx.compose.ui.graphics.toArgb
+import com.sarathexp.offlinewallet.app.theme.OfflineWalletTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             OfflineWalletTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Greeting("Android")
+                SystemBarsColor()
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    MainScreen(
+                        modifier = Modifier.fillMaxSize(),
+                    )
                 }
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    OfflineWalletTheme {
-        Greeting("Android")
+    @Composable
+    private fun SystemBarsColor() {
+        val bgColor = MaterialTheme.colorScheme.background.toArgb()
+        LaunchedEffect(Unit) {
+            enableEdgeToEdge(
+                statusBarStyle = SystemBarStyle.auto(bgColor, bgColor),
+                navigationBarStyle =
+                    SystemBarStyle.auto(
+                        bgColor,
+                        bgColor,
+                    ),
+            )
+        }
     }
 }

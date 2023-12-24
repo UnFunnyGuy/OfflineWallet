@@ -1,4 +1,4 @@
-package com.sarathexp.offlinewallet.presentation.theme
+package com.sarathexp.offlinewallet.app.theme
 
 import android.app.Activity
 import android.os.Build

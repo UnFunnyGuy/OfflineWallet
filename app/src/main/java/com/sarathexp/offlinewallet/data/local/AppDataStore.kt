@@ -12,11 +12,9 @@ import javax.inject.Inject
 class AppDataStore @Inject constructor(
     private val dataStore: DataStore<Preferences>
 ) {
-
     companion object {
         val IS_FIRST_RUN = booleanPreferencesKey("is_first_run")
         val JSON_CHK_SUM = stringPreferencesKey("json_chk_sum")
-//        val DEVICE_ID = stringPreferencesKey("device_id")
     }
 
     val isFirstRun: Boolean =

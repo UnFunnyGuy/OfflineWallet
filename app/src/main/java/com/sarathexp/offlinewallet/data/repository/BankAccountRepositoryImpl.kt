@@ -33,7 +33,9 @@ class BankAccountRepositoryImpl @Inject constructor(private val bankAccountDao: 
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override suspend fun getAllBankAccounts(): Flow<List<BankAccount>> {
-        return bankAccountDao.getAllBankAccounts().mapLatest { list -> list.map { it.toDomain() } }
+    override fun getAllBankAccounts(): Flow<List<BankAccount>> {
+        return bankAccountDao.getAllBankAccounts().mapLatest { list ->
+            list.map { it.toDomain() }
+        }
     }
 }

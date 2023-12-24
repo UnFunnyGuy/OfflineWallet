@@ -1,8 +1,39 @@
 package com.sarathexp.offlinewallet.app.base
 
-abstract class BaseUseCase<in Params, out Type> {
+import kotlinx.coroutines.flow.Flow
 
-    protected abstract suspend fun run(params: Params): Type
-    suspend operator fun invoke(params: Params): Type = run(params)
+/**
+ * Base use case interface.
+ *
+ * @param Params
+ * @param Result
+ */
+interface BaseUseCase<in Params, out Result, > {
+
+    /**
+     * Perform an operation with no input parameters.
+     * Will throw an exception by default, if not implemented but invoked.
+     *
+     * @return [Result]
+     */
+    suspend fun perform(): Result = throw NotImplementedError()
+
+    /**
+     * Perform an operation.
+     *  Will throw an exception by default, if not implemented but invoked.
+     *
+     * @param params
+     * @return [Result?]
+     */
+    suspend fun perform(params: Params): Result? = throw NotImplementedError()
+
+    /**
+     * Perform an operation with a nullable input parameters.
+     *  Will throw an exception by default, if not implemented but invoked.
+     *
+     * @return [Flow]<[Result]>
+     */
+    fun performStreaming(params: Params? = null): Flow<Result> = throw NotImplementedError()
+
 
 }

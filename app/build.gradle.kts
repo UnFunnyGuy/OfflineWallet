@@ -7,6 +7,10 @@ plugins {
     alias(libs.plugins.hilt)
 }
 
+ksp {
+    arg("compose-destinations.generateNavGraphs", "false")
+}
+
 android {
     namespace = "com.sarathexp.offlinewallet"
     compileSdk = 34

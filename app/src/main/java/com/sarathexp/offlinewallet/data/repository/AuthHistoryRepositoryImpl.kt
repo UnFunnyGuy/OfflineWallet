@@ -21,7 +21,7 @@ class AuthHistoryRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllAuthHistories(): Flow<List<AuthHistory>> {
+    override fun getAllAuthHistories(): Flow<List<AuthHistory>> {
         TODO("Not yet implemented")
     }
 

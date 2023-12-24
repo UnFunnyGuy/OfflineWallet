@@ -9,5 +9,5 @@ interface BankAccountRepository {
     suspend fun deleteBankAccount(bankAccount: BankAccount): Boolean
     suspend fun deleteBankAccountById(bankAccountId: Long): Boolean
     suspend fun getBankAccountById(bankAccountId: Long): BankAccount?
-    suspend fun getAllBankAccounts(): Flow<List<BankAccount>>
+    fun getAllBankAccounts(): Flow<List<BankAccount>>
 }

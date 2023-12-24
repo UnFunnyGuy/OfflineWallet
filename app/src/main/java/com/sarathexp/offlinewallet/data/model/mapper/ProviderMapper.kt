@@ -9,8 +9,8 @@ fun ProviderEntity.toDomain(): Provider {
         name = name,
         isBank = isBank,
         issuesCards = issuesCards,
-        logoRes = logoRes,
-        iconRes = iconRes,
+        logoRes = logoRes ?: -1,
+        iconRes = iconRes ?: -1,
     )
 }
 

@@ -54,16 +54,15 @@ abstract class AppDatabase : RoomDatabase() {
 
         @Volatile private var INSTANCE: AppDatabase? = null
 
-        fun getInstance(context: Context, providerHandler: ProviderHandler): AppDatabase {
+        fun getInstance(context: Context): AppDatabase {
             return INSTANCE
                 ?: synchronized(this) {
-                    INSTANCE ?: buildDatabase(context, providerHandler).also { INSTANCE = it }
+                    INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
                 }
         }
 
         private fun buildDatabase(
             context: Context,
-            providerHandler: ProviderHandler,
             openHelperFactory: SupportFactory? = null
         ): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, "OfflineWallet.db")
@@ -72,6 +71,7 @@ abstract class AppDatabase : RoomDatabase() {
                     object : Callback() {
                         override fun onOpen(db: SupportSQLiteDatabase) {
                             super.onOpen(db)
+                            val providerHandler by lazy { ProviderHandler(context) }
                             INSTANCE?.let { appDatabase ->
                                 providerHandler.checkProviders(appDatabase.providerDao())
                             }
