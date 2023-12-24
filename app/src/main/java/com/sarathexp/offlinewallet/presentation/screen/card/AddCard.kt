@@ -58,7 +58,7 @@ private fun ColumnScope.Content(
         inputEvent =
             TypeInputEvent(state.cardNumber) { onAction(CardUIAction.CardNumberChanged(it)) },
         modifier = Modifier.fillMaxWidth(),
-        visualTransformation = CardTransformation.NormalCards,
+        visualTransformation = CardTransformation.normalCards(),
     )
 
     NormalTextField(
