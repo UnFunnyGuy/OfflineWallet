@@ -4,4 +4,7 @@
     <string name="screen_title_add_cards">Add Card</string>
     <string name="button_add">ADD</string>
     <string name="field_card_number">Card Number</string>
+    <string name="field_card_holder">Card Holder</string>
+    <string name="field_card_expiry">Card Expiry</string>
+    <string name="field_card_cvv">Card CVV</string>
 </resources>

@@ -31,6 +31,8 @@ class CardTransformation : VisualTransformation {
             digitMask: String = "*"
         ) = CardTransformation(NormalCardFormatter(separator, displayOnlyLastFourDigits, digitMask))
 
+        val ExpiryDate = CardTransformation(ExpiryDateFormatter())
+
         val SpecialCards = CardTransformation(SpecialCardFormatter())
 
     }
@@ -102,6 +104,52 @@ class CardTransformation : VisualTransformation {
     private class SpecialCardFormatter : CardFormatter {
         override fun format(text: AnnotatedString): TransformedText {
             return TransformedText(text, OffsetMapping.Identity)
+        }
+    }
+
+    private class ExpiryDateFormatter(
+        private val separator: String = "/",
+        private val displayOnlyLastTwoDigits: Boolean = false,
+        private val digitMask: String = "*"
+    ) : CardFormatter {
+
+        /**
+         * Formats the [text]
+         *
+         * @param text the text to format.
+         * @return the formatted text.
+         */
+        override fun format(
+            text: AnnotatedString,
+        ): TransformedText {
+
+            val trimmed =
+                if (text.text.length >= 5) text.text.substring(0..4) else text.text
+            var out = ""
+            for (i in trimmed.indices) {
+                out += if (displayOnlyLastTwoDigits && i !in 3..4) digitMask else trimmed[i]
+                if (i == 1) out += separator
+            }
+
+            val offsetMapping = object : OffsetMapping {
+                override fun originalToTransformed(offset: Int): Int {
+                    return when {
+                        offset <= 1 -> offset
+                        offset <= 4 -> offset + 1
+                        else -> 7
+                    }
+                }
+
+                override fun transformedToOriginal(offset: Int): Int {
+                    return when {
+                        offset <= 2 -> offset
+                        offset <= 6 -> offset - 1
+                        else -> 4
+                    }
+                }
+            }
+
+            return TransformedText(AnnotatedString(out), offsetMapping)
         }
     }
 }

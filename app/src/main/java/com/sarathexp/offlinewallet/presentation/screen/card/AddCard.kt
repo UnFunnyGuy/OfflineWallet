@@ -1,13 +1,20 @@
 package com.sarathexp.offlinewallet.presentation.screen.card
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.sarathexp.offlinewallet.R
@@ -15,6 +22,7 @@ import com.sarathexp.offlinewallet.app.base.collectState
 import com.sarathexp.offlinewallet.presentation.component.NormalNumberTextField
 import com.sarathexp.offlinewallet.presentation.component.NormalTextField
 import com.sarathexp.offlinewallet.presentation.component.TypeInputTransformer
+import com.sarathexp.offlinewallet.presentation.composable.MinimalCard
 import com.sarathexp.offlinewallet.presentation.composable.TitleBarScreen
 import com.sarathexp.offlinewallet.presentation.screen.card.interactor.CardUIAction
 import com.sarathexp.offlinewallet.presentation.screen.card.interactor.CardUIState
@@ -22,6 +30,7 @@ import com.sarathexp.offlinewallet.presentation.screen.card.interactor.CardViewM
 import com.sarathexp.offlinewallet.presentation.util.CardTransformation
 import com.sarathexp.offlinewallet.presentation.util.InputEvent
 import com.sarathexp.offlinewallet.presentation.util.TypeInputEvent
+import com.sarathexp.offlinewallet.presentation.util.shadow
 import com.sarathexp.offlinewallet.util.extension.formattedString
 
 @Destination
@@ -41,13 +50,26 @@ fun AddCard(navigator: DestinationsNavigator, viewModel: CardViewModel) {
     }
 }
 
-//TODO:
+// TODO:
 @Composable
-private fun ColumnScope.Content(
-    state: CardUIState,
-    onAction: (CardUIAction) -> Unit
-) {
+private fun ColumnScope.Content(state: CardUIState, onAction: (CardUIAction) -> Unit) {
 
+    MinimalCard(
+        holder = state.cardHolder,
+        number = state.cardNumber.formattedString,
+        expiration = state.cardExpiry.formattedString,
+        cardNetwork = state.cardNetwork,
+        modifier = Modifier.fillMaxWidth().shadow(
+            color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+            borderRadius = 16.dp,
+            blurRadius = 15.dp,
+            spread = 0.6f.dp,
+        ),
+    )
+
+    Spacer(Modifier.height(20.dp))
+
+    // Not Final
     NormalNumberTextField(
         label = R.string.field_card_number,
         transformer =
@@ -62,8 +84,42 @@ private fun ColumnScope.Content(
     )
 
     NormalTextField(
-        label = R.string.field_card_number,
-        inputEvent = InputEvent(state.cardHolder) { onAction(CardUIAction.CardHolderChanged(it.uppercase())) },
+        label = R.string.field_card_holder,
+        inputEvent =
+            InputEvent(state.cardHolder) {
+                onAction(CardUIAction.CardHolderChanged(it.uppercase()))
+            },
         modifier = Modifier.fillMaxWidth(),
     )
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        NormalNumberTextField(
+            label = R.string.field_card_expiry,
+            transformer =
+                TypeInputTransformer(
+                    transform = { it.formattedString },
+                    reverseTransform = { it.toLongOrNull() ?: 0L }
+                ),
+            inputEvent =
+                TypeInputEvent(state.cardExpiry) { onAction(CardUIAction.CardExpiryChanged(it)) },
+            modifier = Modifier.weight(1f),
+            visualTransformation = CardTransformation.ExpiryDate
+        )
+
+        NormalNumberTextField(
+            label = R.string.field_card_cvv,
+            transformer =
+                TypeInputTransformer(
+                    transform = { it?.formattedString ?: "" },
+                    reverseTransform = { it.toLongOrNull() ?: 0L }
+                ),
+            inputEvent =
+                TypeInputEvent(state.cardCvv) { onAction(CardUIAction.CardCvvChanged(it)) },
+            modifier = Modifier.weight(1f),
+            visualTransformation = CardTransformation.normalCards(),
+        )
+    }
 }

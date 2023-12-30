@@ -2,6 +2,7 @@ package com.sarathexp.offlinewallet.presentation.screen.card.interactor
 
 import com.sarathexp.offlinewallet.app.base.UIState
 import com.sarathexp.offlinewallet.domain.model.card.CardListItem
+import com.sarathexp.offlinewallet.domain.model.card.CardNetwork
 import kotlinx.collections.immutable.ImmutableList
 
 data class CardUIState(
@@ -10,4 +11,8 @@ data class CardUIState(
 
     val cardNumber: Long,
     val cardHolder: String,
+    val cardExpiry: Long,
+    val cardCvv: Long?,
+    val cardNetwork: CardNetwork,
+
 ): UIState

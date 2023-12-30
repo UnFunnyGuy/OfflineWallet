@@ -2,6 +2,7 @@ package com.sarathexp.offlinewallet.presentation.screen.card.interactor
 
 import com.sarathexp.offlinewallet.app.base.BaseViewModel
 import com.sarathexp.offlinewallet.app.base.launch
+import com.sarathexp.offlinewallet.domain.model.card.CardNetwork
 import com.sarathexp.offlinewallet.domain.use_case.card.CardUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
@@ -19,6 +20,9 @@ class CardViewModel @Inject constructor(private val cardUseCases: CardUseCases) 
             cards = persistentListOf(),
             cardNumber = 0L,
             cardHolder = "",
+            cardExpiry = 0L,
+            cardCvv = null,
+            cardNetwork = CardNetwork.MASTER_CARD
         )
     }
 
@@ -37,7 +41,24 @@ class CardViewModel @Inject constructor(private val cardUseCases: CardUseCases) 
             is CardUIAction.DeleteCard -> TODO()
             is CardUIAction.UpdateCard -> TODO()
             is CardUIAction.CardNumberChanged -> update { copy(cardNumber = action.cardNumber) }
-            is CardUIAction.CardHolderChanged -> update { copy(cardHolder = action.name) }
+            is CardUIAction.CardHolderChanged -> {
+                if (action.name.length <= 20)
+                    update { copy(cardHolder = action.name) }
+            }
+            is CardUIAction.CardCvvChanged -> {
+                if (action.cvv.toString().length <= 3) update { copy(cardCvv = action.cvv) }
+            }
+            is CardUIAction.CardExpiryChanged -> {
+                if (action.expiry.toString().length <= 4) {
+                    if (action.expiry.toString().length >= 2) {
+                        val month = action.expiry.toString().take(2).toLongOrNull()
+                        if (month != null && month <= 12L)
+                            update { copy(cardExpiry = action.expiry) }
+                    } else {
+                        update { copy(cardExpiry = action.expiry) }
+                    }
+                }
+            }
         }
     }
 }

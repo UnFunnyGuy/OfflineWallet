@@ -6,6 +6,8 @@ sealed interface CardUIAction : ActionEvent {
 
     data class CardNumberChanged(val cardNumber: Long) : CardUIAction
     data class CardHolderChanged(val name: String) : CardUIAction
+    data class CardExpiryChanged(val expiry: Long) : CardUIAction
+    data class CardCvvChanged(val cvv: Long?) : CardUIAction
 
     data class SetSearchText(val searchText: String) : CardUIAction
     data object AddCard : CardUIAction
