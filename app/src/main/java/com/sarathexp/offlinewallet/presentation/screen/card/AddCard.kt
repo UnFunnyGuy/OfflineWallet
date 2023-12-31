@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,7 +29,6 @@ import com.sarathexp.offlinewallet.presentation.screen.card.interactor.CardViewM
 import com.sarathexp.offlinewallet.presentation.util.CardTransformation
 import com.sarathexp.offlinewallet.presentation.util.InputEvent
 import com.sarathexp.offlinewallet.presentation.util.TypeInputEvent
-import com.sarathexp.offlinewallet.presentation.util.shadow
 import com.sarathexp.offlinewallet.util.extension.formattedString
 
 @Destination
@@ -58,13 +56,9 @@ private fun ColumnScope.Content(state: CardUIState, onAction: (CardUIAction) -> 
         holder = state.cardHolder,
         number = state.cardNumber.formattedString,
         expiration = state.cardExpiry.formattedString,
+        cvv = state.cardCvv.formattedString,
         cardNetwork = state.cardNetwork,
-        modifier = Modifier.fillMaxWidth().shadow(
-            color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
-            borderRadius = 16.dp,
-            blurRadius = 15.dp,
-            spread = 0.6f.dp,
-        ),
+        modifier = Modifier.fillMaxWidth(),
     )
 
     Spacer(Modifier.height(20.dp))
