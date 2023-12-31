@@ -9,10 +9,10 @@ data class CardUIState(
     val searchText: String,
     val cards: ImmutableList<CardListItem>,
 
-    val cardNumber: Long,
+    val cardNumber: String,
     val cardHolder: String,
-    val cardExpiry: Long,
-    val cardCvv: Long?,
+    val cardExpiry: String,
+    val cardCvv: String,
     val cardNetwork: CardNetwork,
 
 ): UIState

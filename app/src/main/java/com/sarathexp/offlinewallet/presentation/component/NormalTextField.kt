@@ -19,13 +19,16 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.core.text.isDigitsOnly
 import com.sarathexp.offlinewallet.presentation.util.InputEvent
 import com.sarathexp.offlinewallet.presentation.util.TypeInputEvent
+import com.sarathexp.offlinewallet.util.extension.numFieldCheck
 
+// TODO : Redo NumberTextField
 @Composable
 fun NormalTextField(
     @StringRes label: Int,
     inputEvent: InputEvent,
     modifier: Modifier = Modifier,
     keyboardOptions: KeyboardOptions? = null,
+    keyboardType: KeyboardType = KeyboardType.Text,
     keyboardActions: KeyboardActions? = null,
     imeAction: ImeAction = ImeAction.Next,
     onImeAction: (FocusManager) -> Unit = { it.moveFocus(FocusDirection.Next) },
@@ -36,6 +39,7 @@ fun NormalTextField(
     suffix: @Composable (() -> Unit)? = null,
     supportingText: String? = null,
     isError: Boolean = false,
+    numberField: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
 
@@ -43,11 +47,20 @@ fun NormalTextField(
 
     OutlinedTextField(
         value = inputEvent.value,
-        onValueChange = inputEvent.onValueChange,
+        onValueChange = {
+            if (numberField) {
+                if (it.numFieldCheck()) {
+                    inputEvent.onValueChange(it)
+                }
+            } else {
+                inputEvent.onValueChange(it)
+            }
+        },
         label = { Text(text = stringResource(id = label)) },
         placeholder = { placeholder?.let { Text(it) } },
         singleLine = true,
-        keyboardOptions = keyboardOptions ?: KeyboardOptions(imeAction = imeAction),
+        keyboardOptions =
+            keyboardOptions ?: KeyboardOptions(imeAction = imeAction, keyboardType = keyboardType),
         keyboardActions =
             keyboardActions
                 ?: KeyboardActions(

@@ -18,10 +18,10 @@ class CardViewModel @Inject constructor(private val cardUseCases: CardUseCases) 
         return CardUIState(
             searchText = "",
             cards = persistentListOf(),
-            cardNumber = 0L,
+            cardNumber = "",
             cardHolder = "",
-            cardExpiry = 0L,
-            cardCvv = null,
+            cardExpiry = "",
+            cardCvv = "",
             cardNetwork = CardNetwork.MASTER_CARD
         )
     }
@@ -40,18 +40,20 @@ class CardViewModel @Inject constructor(private val cardUseCases: CardUseCases) 
             CardUIAction.AddCard -> TODO()
             is CardUIAction.DeleteCard -> TODO()
             is CardUIAction.UpdateCard -> TODO()
-            is CardUIAction.CardNumberChanged -> update { copy(cardNumber = action.cardNumber) }
+            is CardUIAction.CardNumberChanged -> {
+                update { copy(cardNumber = action.cardNumber) }
+            }
             is CardUIAction.CardHolderChanged -> {
-                if (action.name.length <= 20)
-                    update { copy(cardHolder = action.name) }
+                if (action.name.length <= 20) update { copy(cardHolder = action.name) }
             }
             is CardUIAction.CardCvvChanged -> {
-                if (action.cvv.toString().length <= 3) update { copy(cardCvv = action.cvv) }
+                if (action.cvv.length <= 3)
+                    update { copy(cardCvv = action.cvv) }
             }
             is CardUIAction.CardExpiryChanged -> {
-                if (action.expiry.toString().length <= 4) {
-                    if (action.expiry.toString().length >= 2) {
-                        val month = action.expiry.toString().take(2).toLongOrNull()
+                if (action.expiry.length <= 4) {
+                    if (action.expiry.length <= 2) {
+                        val month = action.expiry.take(2).toLongOrNull()
                         if (month != null && month <= 12L)
                             update { copy(cardExpiry = action.expiry) }
                     } else {

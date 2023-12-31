@@ -4,10 +4,10 @@ import com.sarathexp.offlinewallet.app.base.ActionEvent
 
 sealed interface CardUIAction : ActionEvent {
 
-    data class CardNumberChanged(val cardNumber: Long) : CardUIAction
+    data class CardNumberChanged(val cardNumber: String) : CardUIAction
     data class CardHolderChanged(val name: String) : CardUIAction
-    data class CardExpiryChanged(val expiry: Long) : CardUIAction
-    data class CardCvvChanged(val cvv: Long?) : CardUIAction
+    data class CardExpiryChanged(val expiry: String) : CardUIAction
+    data class CardCvvChanged(val cvv: String) : CardUIAction
 
     data class SetSearchText(val searchText: String) : CardUIAction
     data object AddCard : CardUIAction

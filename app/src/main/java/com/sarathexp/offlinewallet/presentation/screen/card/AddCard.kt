@@ -13,14 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.sarathexp.offlinewallet.R
 import com.sarathexp.offlinewallet.app.base.collectState
-import com.sarathexp.offlinewallet.presentation.component.NormalNumberTextField
 import com.sarathexp.offlinewallet.presentation.component.NormalTextField
-import com.sarathexp.offlinewallet.presentation.component.TypeInputTransformer
 import com.sarathexp.offlinewallet.presentation.composable.MinimalCard
 import com.sarathexp.offlinewallet.presentation.composable.TitleBarScreen
 import com.sarathexp.offlinewallet.presentation.screen.card.interactor.CardUIAction
@@ -28,8 +27,6 @@ import com.sarathexp.offlinewallet.presentation.screen.card.interactor.CardUISta
 import com.sarathexp.offlinewallet.presentation.screen.card.interactor.CardViewModel
 import com.sarathexp.offlinewallet.presentation.util.CardTransformation
 import com.sarathexp.offlinewallet.presentation.util.InputEvent
-import com.sarathexp.offlinewallet.presentation.util.TypeInputEvent
-import com.sarathexp.offlinewallet.util.extension.formattedString
 
 @Destination
 @Composable
@@ -54,9 +51,9 @@ private fun ColumnScope.Content(state: CardUIState, onAction: (CardUIAction) -> 
 
     MinimalCard(
         holder = state.cardHolder,
-        number = state.cardNumber.formattedString,
-        expiration = state.cardExpiry.formattedString,
-        cvv = state.cardCvv.formattedString,
+        number = state.cardNumber,
+        expiration = state.cardExpiry,
+        cvv = state.cardCvv,
         cardNetwork = state.cardNetwork,
         modifier = Modifier.fillMaxWidth(),
     )
@@ -64,17 +61,14 @@ private fun ColumnScope.Content(state: CardUIState, onAction: (CardUIAction) -> 
     Spacer(Modifier.height(20.dp))
 
     // Not Final
-    NormalNumberTextField(
+    NormalTextField(
         label = R.string.field_card_number,
-        transformer =
-            TypeInputTransformer(
-                transform = { it.formattedString },
-                reverseTransform = { it.toLongOrNull() ?: 0L }
-            ),
         inputEvent =
-            TypeInputEvent(state.cardNumber) { onAction(CardUIAction.CardNumberChanged(it)) },
+        InputEvent(state.cardNumber) { onAction(CardUIAction.CardNumberChanged(it)) },
         modifier = Modifier.fillMaxWidth(),
         visualTransformation = CardTransformation.normalCards(),
+        keyboardType = KeyboardType.NumberPassword,
+        numberField = true
     )
 
     NormalTextField(
@@ -90,30 +84,25 @@ private fun ColumnScope.Content(state: CardUIState, onAction: (CardUIAction) -> 
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        NormalNumberTextField(
+        NormalTextField(
             label = R.string.field_card_expiry,
-            transformer =
-                TypeInputTransformer(
-                    transform = { it.formattedString },
-                    reverseTransform = { it.toLongOrNull() ?: 0L }
-                ),
             inputEvent =
-                TypeInputEvent(state.cardExpiry) { onAction(CardUIAction.CardExpiryChanged(it)) },
+            InputEvent(state.cardExpiry) { onAction(CardUIAction.CardExpiryChanged(it)) },
             modifier = Modifier.weight(1f),
-            visualTransformation = CardTransformation.ExpiryDate
+            visualTransformation = CardTransformation.ExpiryDate,
+            keyboardType = KeyboardType.NumberPassword,
+            numberField = true
         )
 
-        NormalNumberTextField(
+        NormalTextField(
             label = R.string.field_card_cvv,
-            transformer =
-                TypeInputTransformer(
-                    transform = { it?.formattedString ?: "" },
-                    reverseTransform = { it.toLongOrNull() ?: 0L }
-                ),
             inputEvent =
-                TypeInputEvent(state.cardCvv) { onAction(CardUIAction.CardCvvChanged(it)) },
+            InputEvent(state.cardCvv) { onAction(CardUIAction.CardCvvChanged(it)) },
             modifier = Modifier.weight(1f),
             visualTransformation = CardTransformation.normalCards(),
+            keyboardType = KeyboardType.NumberPassword,
+            numberField = true
         )
     }
 }
+
