@@ -127,13 +127,12 @@ fun MinimalCard(
 
                 Text(
                     text = cardNumber.text,
-                    color = textColor.copy(0.85f),
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 22.sp,
-                    fontStyle = FontStyle.Normal,
+                    color = textColor.copy(0.9f),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 21.sp,
                     fontFamily = FontFamily.Monospace,
                     textAlign = TextAlign.Start,
-                    letterSpacing = 2.7.sp
+                    letterSpacing = 3.sp
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -142,9 +141,9 @@ fun MinimalCard(
                 ) {
                     Text(
                         text = holder.uppercase().ifEmpty { "CARD HOLDER" },
-                        color = textColor.copy(0.9f),
+                        color = textColor.copy(0.85f),
                         fontWeight = FontWeight.SemiBold,
-                        fontSize = 20.sp,
+                        fontSize = 18.sp,
                         fontStyle = FontStyle.Normal,
                         fontFamily = FontFamily.Monospace,
                         textAlign = TextAlign.Start,
@@ -153,9 +152,9 @@ fun MinimalCard(
                     Spacer(modifier = Modifier.weight(1f))
                     Text(
                         text = cardExpiry.text,
-                        color = textColor.copy(0.9f),
+                        color = textColor.copy(0.85f),
                         fontWeight = FontWeight.SemiBold,
-                        fontSize = 20.sp,
+                        fontSize = 18.sp,
                         fontStyle = FontStyle.Normal,
                         fontFamily = FontFamily.Monospace,
                         textAlign = TextAlign.End,
@@ -183,7 +182,7 @@ fun MinimalCard(
                             .fillMaxWidth()
                             .height(50.dp)
                             .background(
-                                color = textColor.copy(0.25f),
+                                color = textColor,
                                 shape = MaterialTheme.shapes.small
                             )
                             .padding(horizontal = 8.dp),
@@ -191,15 +190,19 @@ fun MinimalCard(
                 ) {
                     Text(
                         text = cvv,
-                        color = textColor,
+                        color = bgColor,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 20.sp,
+                        fontFamily = FontFamily.Monospace,
+                        fontStyle = FontStyle.Italic,
                     )
                     Text(
                         modifier = Modifier.align(Alignment.CenterStart),
                         text = "CVV",
-                        color = textColor.copy(0.85f),
+                        color = bgColor.copy(0.85f),
                         fontWeight = FontWeight.SemiBold,
+                        fontFamily = FontFamily.Monospace,
+                        fontStyle = FontStyle.Italic,
                         fontSize = 18.sp,
                     )
                 }
